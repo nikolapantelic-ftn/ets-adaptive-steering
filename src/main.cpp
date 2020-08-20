@@ -41,8 +41,13 @@ int main()
 
     cout << "Game process successfuly opened." << endl << "Program active." << endl;
 
-    rSteerSensAddr = findSteerSensAddr(hProcess);
-    truckSpeedAddr = findTruckSpeedAddr(hProcess);
+    string modName = "eurotrucks2.exe";
+    char *cstr = new char[modName.length() + 1];
+    strcpy(cstr, modName.c_str());
+    DWORD_PTR modBaseAddr = GetModuleBaseAddress(pid, cstr);
+
+    rSteerSensAddr = findSteerSensAddr(hProcess, modBaseAddr);
+    truckSpeedAddr = findTruckSpeedAddr(hProcess, modBaseAddr);
 
     if(!rSteerSensAddr || !truckSpeedAddr)
     {

@@ -2,12 +2,14 @@
 #define ADDRESS_OPS_H_INCLUDED
 
 #include <windows.h>
+#include <TlHelp32.h>
 
-#define STEER_SENS_BASE_ADDR 0x7FF63F5A30C0 //The base pointer address for steering sensitivity value
-#define TRUCK_SPEED_BASE_ADDR 0x7FF63F5A30C0 //The base pointer address for truck speed value
+#define BASE_ADDR_OFFSET 0x15130C0 //The base pointer address for steering sensitivity value
+
 
 LPVOID findAddr(HANDLE hProcess, LPVOID basePtr, int *offsets, int offsetsCnt);
-LPVOID findSteerSensAddr(HANDLE hProcess);
-LPVOID findTruckSpeedAddr(HANDLE hProcess);
+LPVOID findSteerSensAddr(HANDLE hProcess, DWORD_PTR modBaseAddr);
+LPVOID findTruckSpeedAddr(HANDLE hProcess, DWORD_PTR modBaseAddr);
+DWORD_PTR GetModuleBaseAddress(DWORD pid, char* modName);
 
 #endif // ADDRESS_OPS_H_INCLUDED
